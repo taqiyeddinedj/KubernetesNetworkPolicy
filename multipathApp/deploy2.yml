@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy2
+  labels:
+    app: deploy2
+spec:
+  selector:
+    matchLabels:
+      app: deploy2
+  template:
+    metadata:
+      labels:
+        app: deploy2
+    spec:
+      containers: 
+        - name: deploy2
+          image: gcr.io/google-samples/hello-app:1.0
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deploy2service
+spec:
+  selector:
+    app: deploy2
+  #type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+      

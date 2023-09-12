@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-deploy-ingress
+spec:
+  rules:
+  - host: webapp.com
+    http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: deploy1service
+                port:
+                  number: 80
+          - path: /app1
+            pathType: Prefix
+            backend:
+              service:
+                name: deploy2service
+                port:
+                  number: 80
+          - path: /app2
+            pathType: Prefix
+            backend:
+              service:
+                name: deploy3service
+                port:
+                  number: 80
