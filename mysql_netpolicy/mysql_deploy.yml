@@ -22,8 +22,8 @@ spec:
               key: password
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: "500Mi"
+            cpu: "500m"
         ports:
         - containerPort: 3306
         volumeMounts:
@@ -39,7 +39,10 @@ kind: Service
 metadata:
   name: mysql-service
 spec:
+  type: NodePort
   ports:
   - port: 3306
+    targetPort: 3306
+    nodePort: 31000 
   selector:
     app: mysql
