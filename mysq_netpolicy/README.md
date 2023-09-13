@@ -1,3 +1,5 @@
+```
+
 touk@k8smaster:~$ k get pods -n mysql-netpolicy -w
 NAME                            READY   STATUS    RESTARTS   AGE
 mysql-deploy-75db46bdf6-lc4cw   1/1     Running   0          8s
@@ -40,3 +42,4 @@ mysql> show databases;
 | sys                |
 +--------------------+
 5 rows in set (0.00 sec)
+```
