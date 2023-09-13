@@ -43,3 +43,6 @@ mysql> show databases;
 +--------------------+
 5 rows in set (0.00 sec)
 ```
+
+![image](https://github.com/taqiyeddinedj/Kubernetes/assets/112349513/e1252ede-825a-4067-a6fe-5ee71d961d44)
+
