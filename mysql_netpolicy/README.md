@@ -1,3 +1,51 @@
+# MySQL Deployment and Service Configuration
+
+This repository contains Kubernetes configuration files for deploying a MySQL database using a Deployment and exposing it with a NodePort Service. Below is a brief overview of the key components and their purposes:
+
+## Deployment (mysql-deploy.yaml)
+
+The Deployment resource manages the MySQL database instance. It specifies the following:
+
+-   **Name**: `mysql-deploy`
+-   **Selector**: Matches pods with the label `app: mysql`
+-   **Containers**:
+    -   Container name: `mysql`
+        -   Docker image: `mysql:latest`
+        -   Environment variable `MYSQL_ROOT_PASSWORD` obtained from a Secret
+        -   Resource limits: 500Mi of memory and 500m of CPU
+        -   Exposes port 3306 for MySQL
+        -   Mounts a persistent storage volume at `/var/lib/mysql`
+
+## Secret (mysql-secret.yaml)
+
+A Secret resource for storing sensitive data, in this case, the MySQL root password, encoded as base64.
+
+## Service (mysql-service.yaml)
+
+The Service resource exposes the MySQL deployment to external access via a NodePort. Key details:
+
+-   **Name**: `mysql-service`
+-   **Service Type**: NodePort
+-   Exposes MySQL port 3306
+-   NodePort set to 31000
+-   Selects pods with the label `app: mysql`
+
+## Persistent Volume (mysql-pv.yaml) and Persistent Volume Claim (mysql-pv-claim.yaml)
+
+The Persistent Volume and Persistent Volume Claim resources are used to manage persistent storage for the MySQL database. The details include:
+
+-   **PV Name**: `mysql-pv`
+-   Storage capacity: 1Gi
+-   Access mode: ReadWriteOnce
+-   Storage class: manual
+-   Reclaim policy: Delete
+-   HostPath used for storage
+
+## NetworkPolicy (deny-traffic-to-mysql.yaml)
+
+This NetworkPolicy resource restricts incoming traffic to the MySQL pods, allowing only pods with the label `purpose: mysqlclient` to access port 3306 (MySQL). Pods without this label are denied access.
+
+Feel free to use these Kubernetes configuration files to set up a MySQL database deployment and service in your Kubernetes cluster. Make sure to customize any values, such as passwords and storage paths, to fit your specific environment and requirements
 ```
 touk@k8smaster:~$ k get pods -n mysql-netpolicy -w
 NAME                            READY   STATUS    RESTARTS   AGE
