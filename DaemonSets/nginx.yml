@@ -13,7 +13,7 @@ spec:
       labels:
         app: nginx
     spec:
-      nodeSelector:
+      nodeSelector: 
         ssd: "true"
       containers:
         - name: nginx
